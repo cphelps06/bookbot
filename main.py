@@ -2,12 +2,19 @@ def get_book_text(path_to_file):
     with open(path_to_file) as f:
         file_contents = f.read()
     return file_contents
-def word_count(text):
-    num_words = text.split()
-    return num_words
-
+from stats import word_count, num_char, sorting_keys, dictionary_list
 def main():
-    book_text = get_book_text("books/frankenstein.txt")
+    book_path = "books/frankenstein.txt"
+    book_text = get_book_text(book_path)
     num_words = word_count(book_text)
-    print(f"{len(num_words)} words found in the document")
+    characters = num_char(book_text)
+    dict_list = dictionary_list(characters)
+    dict_list.sort(reverse=True, key=sorting_keys)
+    print("============ BOOKBOT ============")
+    print(f"Analyzing book found at {book_path}")
+    print("----------- Word Count ----------")
+    print(f"Found {len(num_words)} total words")
+    print("--------- Character Count -------")
+    for items in dict_list:
+        print(f"{items["char"]}: {items["num"]}")
 main()
